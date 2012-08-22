@@ -3,22 +3,14 @@
 // Author: Sean McGee
 // Date: 8.16.12
 
-/*
-if (!$_POST || $_POST['name'] == "" || $_POST['email'] == "") { 
-	header('Location: signup-form.php');
-	die();
- }
-$name = $_POST['name'];
-$email = $_POST['email'];
-$organization = $_POST['organization'];
-$country = $_POST['country'];
-*/
-
 if(!$_POST) {
 	header("Location: test.php");
 	die();	
 }
 
+// SET THE EMAIL ADDRESS YOU WANT THE EMAIL TO COME FROM HERE
+$from = "sean@webdude.us";
+$from_name = "Sean McGee";
 
 $name = $_POST['name'];
 $email = $_POST['email'];
@@ -31,10 +23,8 @@ $mail = new PHPMailer();
 $mail->IsMail();
 
 $mail->AddAddress($email);
-//send copy to futurex
-$mail->AddAddress("smcgee@futurex.com");
-$mail->AddReplyTo("info@futurex.com","Futurex");
-$mail->SetFrom('info@futurex.com', 'Futurex');
+$mail->AddReplyTo($from, $from_name);
+$mail->SetFrom($from, $from_name);
 $mail->Subject = "Document Request by " . $name;
 $mail->Body = "Dear " . $name . "\r\n" . "Here is the document you requested. \r\n";
 $mail->AddAttachment($filename);
